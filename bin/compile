@@ -32,3 +32,33 @@ HostKey /app/.ssh/id_rsa
 AuthorizedKeysFile /app/.ssh/authorized_keys
 UsePrivilegeSeparation no
 EOF
+
+#########################################################################
+
+# config
+APACHE_VERSION="2.4.2"
+APACHE_PATH="apache"
+
+BIN_DIR=$(dirname $0)
+BUILD_DIR=$1
+CACHE_DIR=$2
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+
+# include .files when moving things around
+shopt -s dotglob
+
+cd $BUILD_DIR
+if [ ! -d $BUILD_DIR/www ]; then
+  mkdir $BUILD_DIR/www
+fi
+
+if [ ! -d $BUILD_DIR/conf ]; then
+  mkdir $BUILD_DIR/conf
+fi
+
+APACHE_URL="https://s3.amazonaws.com/cga-buildpack/apache-$APACHE_VERSION.tar.gz"
+echo "-----> Bundling Apache version $APACHE_VERSION"
+curl --silent --max-time 60 --location "$APACHE_URL" | tar xz
+
+# update config files
+cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
