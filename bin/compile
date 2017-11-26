@@ -11,7 +11,7 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 OPT_DIR=$BP_DIR/opt
 
 ######### Create script to export bin
-cp ${OPT_DIR}/path_add_bin.sh $BUILD_DIR/.profile.d/path_add_bin.sh
+#cp ${OPT_DIR}/path_add_bin.sh $BUILD_DIR/.profile.d/path_add_bin.sh
 
 ######### Create script to update ngrok port
 cp ${OPT_DIR}/ngrok_port.sh $BUILD_DIR/.profile.d/ngrok_port.sh
