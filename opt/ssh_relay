@@ -8,16 +8,16 @@ fi
 
 banner_file="/app/.ssh/banner.txt"
 cat << EOF > ${banner_file}
-+--------------------
-| Welcome to Heroku!
-+--------------------
++----------------------
+| Welcome to SSH Relay!
++----------------------
 EOF
 
 echo "Starting sshd for $(whoami)"
 /usr/sbin/sshd -f /app/.ssh/sshd_config -o "Port ${ssh_port}" -o "Banner ${banner_file}"
 
 # Setup ngrok web port
-echo "Setting up ngrok config"
+echo "Setting up ngrok port"
 REPLACE_STR="s/NGROK_PORT/${PORT}/g"
 sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
