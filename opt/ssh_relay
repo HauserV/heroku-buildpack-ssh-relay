@@ -30,9 +30,10 @@ eval "$ngrok_cmd &"
 
 #########################################################################
 
+REPLACE_STR="s/SSH_PORT/${ssh_port}/g"
+sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
+
 REPLACE_STR="s/PORT/${PORT}/g"
 sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
 
-REPLACE_STR="s/SSH_PORT/${ssh_port}/g"
-sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
 /app/apache/bin/httpd -DNO_DETACH
