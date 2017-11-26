@@ -10,14 +10,15 @@ CACHE_DIR=${2:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 OPT_DIR=$BP_DIR/opt
 
-cat << EOF > $BUILD_DIR/.profile.d/path_bin.sh
-export PATH=\$HOME/.heroku/bin:\$PATH
-EOF
+######### Create script to export bin
+cp ${OPT_DIR}/path_add_bin.sh $BUILD_DIR/.profile.d/path_add_bin.sh
+
+######### Create script to update ngrok port
+cp ${OPT_DIR}/ngrok_port.sh $BUILD_DIR/.profile.d/ngrok_port.sh
 
 ######### Create ngrok startup script
-cat << EOF > $BUILD_DIR/.ngrok2/config.yml
-web_addr: $PORT
-EOF
+mkdir $BUILD_DIR/.ngrok2;
+cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/config.yml
 
 ######### Create profile.d startup script
 cp ${OPT_DIR}/sshd.sh $BUILD_DIR/.profile.d/sshd.sh
