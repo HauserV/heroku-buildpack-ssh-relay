@@ -16,7 +16,7 @@ cat << EOF > ${banner_file}
 +----------------------
 EOF
 
-echo "Starting sshd for $(whoami)"
+echo "Starting sshd for $(whoami) on port ${ssh_port}"
 /usr/sbin/sshd -f /app/.ssh/sshd_config -o "Port ${ssh_port}" -o "Banner ${banner_file}"
 
 # Setup ngrok web port
