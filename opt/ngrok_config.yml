@@ -1,1 +1,1 @@
-web_addr: localhost:NGROK_PORT
+web_addr: 0.0.0.0:NGROK_PORT
