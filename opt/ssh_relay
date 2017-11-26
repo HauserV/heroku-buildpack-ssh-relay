@@ -30,6 +30,4 @@ eval "$ngrok_cmd &"
 
 #########################################################################
 
-REPLACE_STR="s/PORT/${PORT}/g"
-sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
 /app/apache/bin/httpd -DNO_DETACH
