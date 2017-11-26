@@ -1,3 +1,1 @@
-#!/bin/bash
-
-export PATH=\$HOME/.heroku/bin:\$PATH
+export PATH=/app/.heroku/bin:\$PATH
