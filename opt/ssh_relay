@@ -2,7 +2,7 @@
 REPLACE_STR="s/WHOAMI/$(whoami)/g"
 sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
-SSH_PORT=${SSH_PORT:-"2222"}
+export SSH_PORT=${SSH_PORT:-"2222"}
 
 if [ -n "$NGROK_API_TOKEN" ]; then
   NGROK_OPTS="${NGROK_OPTS} --authtoken ${NGROK_API_TOKEN}"
@@ -24,7 +24,7 @@ REPLACE_STR="s/NGROK_PORT/${PORT}/g"
 sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
 # Start the tunnel
-ngrok_cmd="ngrok tcp -log stdout ${NGROK_OPTS} ${ssh_port}"
+ngrok_cmd="ngrok tcp -log stdout ${NGROK_OPTS} ${SSH_PORT}"
 echo "Starting ngrok tunnel"
 eval "$ngrok_cmd &"
 
