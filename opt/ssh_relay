@@ -16,6 +16,10 @@ EOF
 echo "Starting sshd for $(whoami)"
 /usr/sbin/sshd -f /app/.ssh/sshd_config -o "Port ${ssh_port}" -o "Banner ${banner_file}"
 
+# Setup ngrok web port
+REPLACE_STR="s/NGROK_PORT/${PORT}/g"
+sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
+
 # Start the tunnel
 ngrok_cmd="ngrok tcp -log stdout ${NGROK_OPTS} ${ssh_port}"
 echo "Starting ngrok tunnel"
