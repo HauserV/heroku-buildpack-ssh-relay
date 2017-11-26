@@ -1,2 +1,2 @@
-web_addr: 0.0.0.0:NGROK_PORT
+web_addr: false
 metadata: WHOAMI

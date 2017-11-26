@@ -2,8 +2,8 @@
 REPLACE_STR="s/WHOAMI/$(whoami)/g"
 sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
-ssh_port=${SSH_PORT:-"22"}
-
+#ssh_port=${SSH_PORT:-"22"}
+ssh_port=${PORT}
 
 if [ -n "$NGROK_API_TOKEN" ]; then
   NGROK_OPTS="${NGROK_OPTS} --authtoken ${NGROK_API_TOKEN}"
