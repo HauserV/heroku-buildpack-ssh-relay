@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# fail fast
+set -eu
+
+# parse args
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+OPT_DIR=$BP_DIR/opt
+
+cat << EOF > $BUILD_DIR/.profile.d/path_bin.sh
+export PATH=\$HOME/.heroku/bin:\$PATH
+EOF
+
+######### Create ngrok startup script
+cat << EOF > $BUILD_DIR/.ngrok2/config.yml
+web_addr: $PORT
+EOF
+
+######### Create profile.d startup script
+cp ${OPT_DIR}/sshd.sh $BUILD_DIR/.profile.d/sshd.sh
+
+######### Install SSH Relay launcher
+cp $OPT_DIR/ssh_relay $BUILD_DIR/.heroku/bin/ssh_relay
+chmod +x $BUILD_DIR/.heroku/bin/ssh_relay
+
+######### Configure SSH Daemon
+mkdir -p $BUILD_DIR/.ssh
+if [ ! -f $BUILD_DIR/.ssh/authorized_keys ]; then
+  ssh-keygen -f $BUILD_DIR/.ssh/id_rsa -t rsa -N ''
+  cat $BUILD_DIR/.ssh/id_rsa.pub > $BUILD_DIR/.ssh/authorized_keys
+fi
+cat << EOF > $BUILD_DIR/.ssh/sshd_config
+HostKey /app/.ssh/id_rsa
+AuthorizedKeysFile /app/.ssh/authorized_keys
+UsePrivilegeSeparation no
+EOF
