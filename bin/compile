@@ -12,7 +12,7 @@ OPT_DIR=$BP_DIR/opt
 
 ######### Create ngrok startup script
 mkdir $BUILD_DIR/.ngrok2;
-cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/config.yml
+cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/ngrok.yml
 
 ######### Create profile.d startup script
 cp ${OPT_DIR}/sshd.sh $BUILD_DIR/.profile.d/sshd.sh
