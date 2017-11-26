@@ -2,7 +2,7 @@
 REPLACE_STR="s/WHOAMI/$(whoami)/g"
 sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
-ssh_port=${SSH_PORT:-"2222"}
+SSH_PORT=${SSH_PORT:-"2222"}
 
 if [ -n "$NGROK_API_TOKEN" ]; then
   NGROK_OPTS="${NGROK_OPTS} --authtoken ${NGROK_API_TOKEN}"
@@ -15,8 +15,8 @@ cat << EOF > ${banner_file}
 +----------------------
 EOF
 
-echo "Starting sshd for $(whoami) on port ${ssh_port}"
-/usr/sbin/sshd -f /app/.ssh/sshd_config -o "Port ${ssh_port}" -o "Banner ${banner_file}"
+echo "Starting sshd for $(whoami) on port ${SSH_PORT}"
+/usr/sbin/sshd -f /app/.ssh/sshd_config -o "Port ${SSH_PORT}" -o "Banner ${banner_file}"
 
 # Setup ngrok web port
 echo "Setting up ngrok port"
@@ -29,11 +29,5 @@ echo "Starting ngrok tunnel"
 eval "$ngrok_cmd &"
 
 #########################################################################
-
-REPLACE_STR="s/SSH_PORT/${ssh_port}/g"
-sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
-
-REPLACE_STR="s/PORT/${PORT}/g"
-sed -i ${REPLACE_STR} /app/conf/ssh-relay.conf
 
 /app/apache/bin/httpd -DNO_DETACH
