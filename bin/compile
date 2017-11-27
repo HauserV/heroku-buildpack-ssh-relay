@@ -37,7 +37,7 @@ EOF
 
 ######### Get chisel
 CHISEL_VERSION=${CHISEL_VERSION:-'1.2.3'}
-if [[ ! -f $BIN_DIR/chisel || $CHISEL_VERSION != $(chisel --version)]]; then
+if [[ ! -f $BIN_DIR/chisel || $CHISEL_VERSION != $(chisel --version)]] then
   wget --quiet -O - https://github.com/jpillora/chisel/releases/download/$CHISEL_VERSION/chisel_linux_amd64.gz | gzip -d > $BIN_DIR/chisel
   chmod +x $BIN_DIR/chisel
 fi
