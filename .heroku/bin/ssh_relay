@@ -20,3 +20,6 @@ sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 
 # Start chisel server
 chisel server --port $PORT --proxy https://rickrolled.fr --key "$CHISEL_SEED" &
+
+# Eval the rest...
+eval "$@"
