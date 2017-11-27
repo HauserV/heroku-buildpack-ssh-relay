@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
-REPLACE_STR="s/WHOAMI/$(whoami)/g"
-sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
 
 export SSH_PORT=${SSH_PORT:-"2222"}
-
-#if [ -n "$NGROK_API_TOKEN" ]; then
-#  NGROK_OPTS="${NGROK_OPTS} --authtoken ${NGROK_API_TOKEN}"
-#fi
 
 banner_file="/app/.ssh/banner.txt"
 cat << EOF > ${banner_file}
@@ -24,15 +18,5 @@ sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 
 /usr/sbin/sshd -f /app/.ssh/sshd_config
 
-# Setup ngrok web port
-#echo "Setting up ngrok port"
-#REPLACE_STR="s/NGROK_PORT/${PORT}/g"
-#sed -i ${REPLACE_STR} /app/.ngrok2/ngrok.yml
-
-# Start the tunnel
-#ngrok_cmd="ngrok tcp -log stdout ${NGROK_OPTS} ${SSH_PORT}"
-#echo "Starting ngrok tunnel"
-#eval "$ngrok_cmd &"
-
 # Start chisel server
-chisel server --port $PORT --proxy https://rickrolled.fr --key "$CHISEL_SEED"
+chisel server --port $PORT --proxy https://rickrolled.fr --key "$CHISEL_SEED" &
