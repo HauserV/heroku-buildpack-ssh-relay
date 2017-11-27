@@ -40,7 +40,7 @@ cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
 ######### Install chisel
 CHISEL_VERSION=${CHISEL_VERSION:-'1.2.3'}
-if [[ (! -x "$(chisel)") || ($CHISEL_VERSION != $(chisel --version)) ]]
+if [[ (! -x $(command -v chisel)) || ($CHISEL_VERSION != $(chisel --version)) ]]
 then
   if [[ ! -f $CACHE_BIN_DIR/chisel-$CHISEL_VERSION ]]
   then
