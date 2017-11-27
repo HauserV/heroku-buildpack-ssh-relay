@@ -29,6 +29,7 @@ chmod +x $BIN_DIR/ssh_relay
 if [[ ! -f $CACHE_SSH_DIR/id_rsa ]]
 then
   ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
+  chmod 640 $CACHE_SSH_DIR/id_rsa
 fi
 
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
