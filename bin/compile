@@ -13,15 +13,15 @@ OPT_DIR=$BP_DIR/opt
 BIN_DIR=$BUILD_DIR/.heroku/bin
 
 ######### Create ngrok startup script
-mkdir $BUILD_DIR/.ngrok2;
-cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/ngrok.yml
+#mkdir $BUILD_DIR/.ngrok2;
+#cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/ngrok.yml
 
 ########## Create profile.d startup script
 #cp ${OPT_DIR}/sshd.sh $BUILD_DIR/.profile.d/sshd.sh
 
 ######### Install SSH Relay launcher
 cp $OPT_DIR/ssh_relay $BUILD_DIR/.heroku/bin/ssh_relay
-chmod +x $BUILD_DIR/.heroku/bin/ssh_relay
+chmod +x $BIN_DIR/ssh_relay
 
 ######### Configure SSH Daemon
 mkdir -p $BUILD_DIR/.ssh
