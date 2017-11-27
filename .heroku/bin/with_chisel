@@ -19,11 +19,11 @@ sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 /usr/sbin/sshd -f /app/.ssh/sshd_config
 
 # Start chisel server
-if [[ -z $CHISEL_KEY ]]; then
+if [[ ! -z $CHISEL_KEY ]]; then
   CHISEL_CMD="--key '$CHISEL_KEY'"
 fi
 
-if [[ -z $CHISEL_PROXY ]]; then
+if [[ ! -z $CHISEL_PROXY ]]; then
   CHISEL_CMD="$CHISEL_CMD --proxy '$CHISEL_PROXY'"
 fi
 
