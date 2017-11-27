@@ -32,7 +32,7 @@ then
   ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
   ls -la $CACHE_SSH_DIR
 
-  chmod 640 $CACHE_SSH_DIR/id_rsa
+  #chmod 640 $CACHE_SSH_DIR/id_rsa
 
   ls -la $CACHE_SSH_DIR
 fi
