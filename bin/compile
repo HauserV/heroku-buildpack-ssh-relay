@@ -30,8 +30,8 @@ mkdir -p $CACHE_SSH_DIR
 cp $BP_PROFILE_DIR/add_to_path.sh $PROFILE_DIR/add_to_path.sh
 
 ######### Install SSH Relay launcher
-cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
-chmod +x $BIN_DIR/ssh_relay
+cp $BP_BIN_DIR/with_chisel $BIN_DIR/with_chisel
+chmod +x $BIN_DIR/with_chisel
 
 ######### Configure SSH Daemon
 if [[ ! -f $CACHE_SSH_DIR/id_rsa ]]

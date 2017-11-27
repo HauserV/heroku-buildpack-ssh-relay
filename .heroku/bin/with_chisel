@@ -19,7 +19,19 @@ sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 /usr/sbin/sshd -f /app/.ssh/sshd_config
 
 # Start chisel server
-chisel server --port $PORT --proxy https://rickrolled.fr --key "$CHISEL_SEED" &
+if [[ -z $CHISEL_KEY ]]; then
+  CHISEL_CMD="--key '$CHISEL_KEY'"
+fi
 
-# Eval the rest...
-eval "$@"
+if [[ -z $CHISEL_PROXY ]]; then
+  CHISEL_CMD="$CHISEL_CMD --proxy '$CHISEL_PROXY'"
+fi
+
+if [[ ! -z $@ ]]; then
+  chisel server --port $PORT $CHISEL_CMD &
+
+  # Eval the rest...
+  eval "$@"
+else
+  chisel server --port $PORT $CHISEL_CMD
+fi
