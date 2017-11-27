@@ -15,6 +15,7 @@ BIN_DIR=$BUILD_DIR/.heroku/bin
 SSH_DIR=$BUILD_DIR/.ssh
 
 ######### Install SSH Relay launcher
+ls -la $BP_BIN_DIR
 cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
 chmod +x $BIN_DIR/ssh_relay
 
