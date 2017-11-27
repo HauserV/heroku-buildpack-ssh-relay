@@ -14,14 +14,14 @@ BP_SSH_DIR=$BP_DIR/.ssh
 BIN_DIR=$BUILD_DIR/.heroku/bin
 SSH_DIR=$BUILD_DIR/.ssh
 
+mkdir -p $BIN_DIR
+mkdir -p $SSH_DIR
+
 ######### Install SSH Relay launcher
-ls -la $BIN_DIR
-ls -la $BUILD_DIR
 cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
 chmod +x $BIN_DIR/ssh_relay
 
 ######### Configure SSH Daemon
-mkdir -p $SSH_DIR
 if [[ ! -f $SSH_DIR/authorized_keys ]]
 then
   ssh-keygen -f $SSH_DIR/id_rsa -t rsa -N ''
