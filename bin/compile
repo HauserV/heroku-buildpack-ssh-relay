@@ -39,6 +39,7 @@ then
   ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
 fi
 
+cp $CACHE_SSH_DIR/id_rsa $SSH_DIR/id_rsa
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/authorized_keys
 
