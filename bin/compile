@@ -4,9 +4,9 @@
 set -eu
 
 # parse args
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
-BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 
 BP_BIN_DIR=$BP_DIR/.heroku/bin
 BP_SSH_DIR=$BP_DIR/.ssh
@@ -14,19 +14,25 @@ BP_SSH_DIR=$BP_DIR/.ssh
 BIN_DIR=$BUILD_DIR/.heroku/bin
 SSH_DIR=$BUILD_DIR/.ssh
 
+CACHE_SSH_DIR=$CACHE_DIR/.ssh
+
 mkdir -p $BIN_DIR
 mkdir -p $SSH_DIR
+
+mkdir -p $CACHE_SSH_DIR
 
 ######### Install SSH Relay launcher
 cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
 chmod +x $BIN_DIR/ssh_relay
 
 ######### Configure SSH Daemon
-if [[ ! -f $SSH_DIR/authorized_keys ]]
+if [[ ! -f $CACHE_SSH_DIR/id_rsa ]]
 then
-  ssh-keygen -f $SSH_DIR/id_rsa -t rsa -N ''
-  cat $SSH_DIR/id_rsa.pub > $SSH_DIR/authorized_keys
+  ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
 fi
+
+cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
+$CACHE_SSH_DIR/id_rsa.pub >> $SSH_DIR/authorized_keys
 
 cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
