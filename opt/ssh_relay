@@ -28,6 +28,5 @@ ngrok_cmd="ngrok tcp -log stdout ${NGROK_OPTS} ${SSH_PORT}"
 echo "Starting ngrok tunnel"
 eval "$ngrok_cmd &"
 
-#########################################################################
-
-/app/apache/bin/httpd -DNO_DETACH
+# Start chisel server
+chisel server --port $PORT --proxy https://rickrolled.fr --key "$CHISEL_SEED"

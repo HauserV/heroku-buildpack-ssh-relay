@@ -10,6 +10,8 @@ CACHE_DIR=${2:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 OPT_DIR=$BP_DIR/opt
 
+BIN_DIR=$BUILD_DIR/.heroku/bin
+
 ######### Create ngrok startup script
 mkdir $BUILD_DIR/.ngrok2;
 cp ${OPT_DIR}/ngrok_config.yml $BUILD_DIR/.ngrok2/ngrok.yml
@@ -33,32 +35,9 @@ AuthorizedKeysFile /app/.ssh/authorized_keys
 UsePrivilegeSeparation no
 EOF
 
-#########################################################################
-
-# config
-APACHE_VERSION="2.4.2"
-APACHE_PATH="apache"
-
-BIN_DIR=$(dirname $0)
-BUILD_DIR=$1
-CACHE_DIR=$2
-LP_DIR=`cd $(dirname $0); cd ..; pwd`
-
-# include .files when moving things around
-shopt -s dotglob
-
-cd $BUILD_DIR
-if [ ! -d $BUILD_DIR/www ]; then
-  mkdir $BUILD_DIR/www
+######### Get chisel
+CHISEL_VERSION=${CHISEL_VERSION:-'1.2.3'}
+if [[ ! -f $BIN_DIR/chisel || $CHISEL_VERSION != $(chisel --version)]]; then
+  wget --quiet -O - https://github.com/jpillora/chisel/releases/download/$CHISEL_VERSION/chisel_linux_amd64.gz | gzip -d > $BIN_DIR/chisel
+  chmod +x $BIN_DIR/chisel
 fi
-
-if [ ! -d $BUILD_DIR/conf ]; then
-  mkdir $BUILD_DIR/conf
-fi
-
-APACHE_URL="https://s3.amazonaws.com/cga-buildpack/apache-$APACHE_VERSION.tar.gz"
-echo "-----> Bundling Apache version $APACHE_VERSION"
-curl --silent --max-time 60 --location "$APACHE_URL" | tar xz
-
-# update config files
-cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
