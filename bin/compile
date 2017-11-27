@@ -26,20 +26,13 @@ cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
 chmod +x $BIN_DIR/ssh_relay
 
 ######### Configure SSH Daemon
-echo $(whoami)
 if [[ ! -f $CACHE_SSH_DIR/id_rsa ]]
 then
   ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
-  ls -la $CACHE_SSH_DIR
-
-  #chmod 640 $CACHE_SSH_DIR/id_rsa
-
-  ls -la $CACHE_SSH_DIR
 fi
 
-ls -la $SSH_DIR
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
-#$CACHE_SSH_DIR/id_rsa.pub > $SSH_DIR/authorized_keys
+cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/authorized_keys
 
 cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
