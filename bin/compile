@@ -27,6 +27,8 @@ mkdir -p $CACHE_BIN_DIR
 mkdir -p $CACHE_SSH_DIR
 
 ######### Add BIN_DIR into PATH
+ls -la $BP_PROFILE_DIR
+ls -la $PROFILE_DIR
 cp $BP_PROFILE_DIR/add_to_path.sh $PROFILE_DIR/add_to_path.sh
 
 ######### Install SSH Relay launcher
