@@ -28,10 +28,12 @@ if [[ -z $CHISEL_PROXY ]]; then
 fi
 
 if [[ ! -z $@ ]]; then
+  echo "Starting chisel as: chisel server --port $PORT $CHISEL_CMD &"
   chisel server --port $PORT $CHISEL_CMD &
 
   # Eval the rest...
   eval "$@"
 else
+  echo "Starting chisel as: chisel server --port $PORT $CHISEL_CMD"
   chisel server --port $PORT $CHISEL_CMD
 fi
