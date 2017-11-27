@@ -39,7 +39,7 @@ fi
 
 ls -la $SSH_DIR
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
-$CACHE_SSH_DIR/id_rsa.pub >> $SSH_DIR/authorized_keys
+$CACHE_SSH_DIR/id_rsa.pub > $SSH_DIR/authorized_keys
 
 cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
