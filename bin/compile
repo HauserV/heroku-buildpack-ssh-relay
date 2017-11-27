@@ -14,11 +14,13 @@ BP_SSH_DIR=$BP_DIR/.ssh
 BIN_DIR=$BUILD_DIR/.heroku/bin
 SSH_DIR=$BUILD_DIR/.ssh
 
+CACHE_BIN_DIR=$CACHE_DIR/.heroku/bin
 CACHE_SSH_DIR=$CACHE_DIR/.ssh
 
 mkdir -p $BIN_DIR
 mkdir -p $SSH_DIR
 
+mkdir -p $CACHE_BIN_DIR
 mkdir -p $CACHE_SSH_DIR
 
 ######### Install SSH Relay launcher
@@ -38,8 +40,12 @@ cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
 ######### Install chisel
 CHISEL_VERSION=${CHISEL_VERSION:-'1.2.3'}
-if [[ (! -f $BIN_DIR/chisel) || ($CHISEL_VERSION != $(chisel --version)) ]]
+if [[ (! -x "$(chisel)") || ($CHISEL_VERSION != $(chisel --version)) ]]
 then
-  wget --quiet -O - https://github.com/jpillora/chisel/releases/download/$CHISEL_VERSION/chisel_linux_amd64.gz | gzip -d > $BIN_DIR/chisel
+  if [[ ! -f $CACHE_BIN_DIR/chisel-$CHISEL_VERSION ]]
+  then
+    wget --quiet -O - https://github.com/jpillora/chisel/releases/download/$CHISEL_VERSION/chisel_linux_amd64.gz | gzip -d > $CACHE_BIN_DIR/chisel-$CHISEL_VERSION
+  fi
+  cp $CACHE_BIN_DIR/chisel-$CHISEL_VERSION $BIN_DIR/chisel
   chmod +x $BIN_DIR/chisel
 fi
