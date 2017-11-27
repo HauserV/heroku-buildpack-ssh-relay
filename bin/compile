@@ -25,15 +25,13 @@ chmod +x $BUILD_DIR/.heroku/bin/ssh_relay
 
 ######### Configure SSH Daemon
 mkdir -p $BUILD_DIR/.ssh
-if [ ! -f $BUILD_DIR/.ssh/authorized_keys ]; then
+if [[ ! -f $BUILD_DIR/.ssh/authorized_keys ]]
+then
   ssh-keygen -f $BUILD_DIR/.ssh/id_rsa -t rsa -N ''
   cat $BUILD_DIR/.ssh/id_rsa.pub > $BUILD_DIR/.ssh/authorized_keys
 fi
-cat << EOF > $BUILD_DIR/.ssh/sshd_config
-HostKey /app/.ssh/id_rsa
-AuthorizedKeysFile /app/.ssh/authorized_keys
-UsePrivilegeSeparation no
-EOF
+
+cp $BP_DIR/.ssh/sshd_config $BUILD_DIR/.ssh/sshd_config
 
 ######### Get chisel
 CHISEL_VERSION=${CHISEL_VERSION:-'1.2.3'}
