@@ -10,18 +10,24 @@ CACHE_DIR=${2:-}
 
 BP_BIN_DIR=$BP_DIR/.heroku/bin
 BP_SSH_DIR=$BP_DIR/.ssh
+BP_PROFILE_DIR=$BP_DIR/.profile.d
 
 BIN_DIR=$BUILD_DIR/.heroku/bin
 SSH_DIR=$BUILD_DIR/.ssh
+PROFILE_DIR=$BUILD_DIR/.profile.d
 
 CACHE_BIN_DIR=$CACHE_DIR/.heroku/bin
 CACHE_SSH_DIR=$CACHE_DIR/.ssh
 
 mkdir -p $BIN_DIR
 mkdir -p $SSH_DIR
+mkdir -p $PROFILE_DIR
 
 mkdir -p $CACHE_BIN_DIR
 mkdir -p $CACHE_SSH_DIR
+
+######### Add BIN_DIR into PATH
+cp $BP_PROFILE_DIR/add_to_path.sh $PROFILE_DIR/add_to_path.sh
 
 ######### Install SSH Relay launcher
 cp $BP_BIN_DIR/ssh_relay $BIN_DIR/ssh_relay
