@@ -16,7 +16,7 @@ sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 REPLACE_STR="s/SSH_PORT/$SSH_PORT/g"
 sed -i ${REPLACE_STR} /app/.ssh/sshd_config
 
-/usr/sbin/sshd -f /app/.ssh/sshd_config
+#/usr/sbin/sshd -f /app/.ssh/sshd_config
 
 # Start chisel server
 if [[ ! -z $CHISEL_KEY ]]; then

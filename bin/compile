@@ -33,7 +33,7 @@ cp $BP_PROFILE_DIR/add_to_path.sh $PROFILE_DIR/add_to_path.sh
 cp $BP_BIN_DIR/with_chisel $BIN_DIR/with_chisel
 chmod +x $BIN_DIR/with_chisel
 
-######### Configure SSH Daemon
+# ######### Configure SSH Daemon
 if [[ ! -f $CACHE_SSH_DIR/id_rsa ]]
 then
   ssh-keygen -f $CACHE_SSH_DIR/id_rsa -t rsa -N ''
@@ -41,7 +41,6 @@ fi
 
 cp $CACHE_SSH_DIR/id_rsa $SSH_DIR/id_rsa
 cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/id_rsa.pub
-cp $CACHE_SSH_DIR/id_rsa.pub $SSH_DIR/authorized_keys
 
 cp $BP_SSH_DIR/sshd_config $SSH_DIR/sshd_config
 
